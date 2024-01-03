@@ -83,7 +83,7 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
+      'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
@@ -222,7 +222,14 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    opts = {
+      --      opleader = {
+      --        line = '<C-/>'
+      --      }
+    }
+  },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -257,8 +264,8 @@ require('lazy').setup({
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.autoformat',
+  --    require 'kickstart.plugins.debug',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
@@ -278,6 +285,7 @@ vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
+vim.wo.relativenumber = true -- add relative number to the nvim
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -310,6 +318,11 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+vim.o.expandtab = true
+
+vim.o.tabstop = 4
+
+vim.o.shiftwidth = 4
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -335,6 +348,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
   group = highlight_group,
   pattern = '*',
+})
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { "*.html", "*.mjs", "*.js" },
+  command = "silent %!prettierd --find-config-path %",
+  -- command = "silent %!prettierd --single-quote --trailing-comma %",
 })
 
 -- [[ Configure Telescope ]]
@@ -567,8 +586,10 @@ local servers = {
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+  tsserver = {},
+  eslint = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+  -- eslint = { probe = { '["javascript","javascriptreact","js","ts","typescript","typescriptreact","html","vue","markdown"]' } },
 
   lua_ls = {
     Lua = {
@@ -624,7 +645,7 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
     ['<CR>'] = cmp.mapping.confirm {
