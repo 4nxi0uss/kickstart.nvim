@@ -41,6 +41,7 @@ P.S. You can delete this when you're done too. It's your config now :)
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+require('artur')
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -222,7 +223,14 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    opts = {
+      --      opleader = {
+      --        line = '<C-/>'
+      --      }
+    }
+  },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -257,8 +265,9 @@ require('lazy').setup({
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.autoformat',
+  --    require 'kickstart.plugins.debug',
+  require 'artur.plugins.neogen',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
@@ -310,8 +319,6 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
--- [[ Basic Keymaps ]]
-
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -335,6 +342,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
   group = highlight_group,
   pattern = '*',
+})
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { "*.html", "*.mjs", "*.js" },
+  command = "silent %!prettierd --find-config-path %",
+  -- command = "silent %!prettierd --single-quote --trailing-comma %",
 })
 
 -- [[ Configure Telescope ]]
@@ -509,7 +522,7 @@ local on_attach = function(_, bufnr)
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-  nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+  nmap('<lader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
@@ -567,8 +580,16 @@ local servers = {
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+  tsserver = {},
+  eslint = {},
+  intelephense = {
+    filetypes = { 'php', 'phtml' }
+  },
+  dockerls = {},
+  docker_compose_language_service = {},
+  cssls = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+  -- eslint = { probe = { '["javascript","javascriptreact","js","ts","typescript","typescriptreact","html","vue","markdown"]' } },
 
   lua_ls = {
     Lua = {
