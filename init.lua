@@ -270,11 +270,12 @@ require('lazy').setup({
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
   require 'kickstart.plugins.autoformat',
-  --    require 'kickstart.plugins.debug',
+  -- require 'kickstart.plugins.debug',
   -- require 'artur.plugins.neogen',
   require 'artur.plugins.undotree',
   require 'artur.plugins.harpoon',
   require 'artur.plugins.doge',
+  require 'artur.plugins.debug'
   -- require 'artur.plugins.copilot',
 
 
@@ -297,12 +298,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
   group = highlight_group,
   pattern = '*',
-})
-
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = { "*.html", "*.mjs", "*.js" },
-  command = "silent %!prettierd --find-config-path %",
-  -- command = "silent %!prettierd --single-quote --trailing-comma %",
 })
 
 -- [[ Configure Telescope ]]
