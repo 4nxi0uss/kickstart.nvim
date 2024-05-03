@@ -1,4 +1,4 @@
-vim.wo.relativenumber = false -- add relative number to the nvim
+vim.wo.relativenumber = true -- add relative number to the nvim
 
 vim.o.expandtab = true
 
