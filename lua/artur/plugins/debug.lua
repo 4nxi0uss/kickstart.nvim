@@ -25,7 +25,7 @@ return {
     'leoluz/nvim-dap-go',
   },
   config = function()
-    local dap = require('dap')
+    local dap = require 'dap'
     local dapui = require 'dapui'
 
     require('mason-nvim-dap').setup {
@@ -42,12 +42,9 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
-        'php-debug-adapter',
-        'chrome-debug-adapter',
         'cpptools'
       },
     }
-
 
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
