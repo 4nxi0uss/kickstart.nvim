@@ -116,7 +116,26 @@ return {
       },
     }
 
+
     -- Install golang specific config
     require('dap-go').setup()
+
+    dap.adapters.go = {
+      type = "server",
+      port = 40000,
+    }
+
+    dap.configurations.go = {
+      {
+        name = "delve container debug",
+        type = "go",
+        request = "attach",
+        mode = "remote",
+        substitutepath = { {
+          from = "${workspaceFolder}",
+          to = "/app",
+        }
+        }
+      } }
   end,
 }
