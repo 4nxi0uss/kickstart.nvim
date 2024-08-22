@@ -273,7 +273,6 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   -- require 'artur.plugins.neogen',
   require 'artur.plugins.undotree',
-  require 'artur.plugins.harpoon',
   require 'artur.plugins.doge',
   require 'artur.plugins.debug'
   -- require 'artur.plugins.copilot',

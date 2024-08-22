@@ -39,10 +39,15 @@ local function iter(str)
     return res
 end
 
-vim.api.nvim_create_autocmd('BufWritePost', {
+vim.api.nvim_create_autocmd('BufWritePre', {
     pattern = { "*.html", "*.mjs", "*.js", "*.json", "*.jsx", "*.tsx" },
     callback = function(c)
-        vim.api.nvim_command(":silent %!prettierd --find-config-path " .. iter(c.file))
+        local pos = vim.fn.getpos('.')
+        local current_lnum = pos[2]
+        local current_col = pos[3]
+
+        vim.api.nvim_command(":silent %!prettier " .. iter(c.file))
+        vim.api.nvim_command(":call cursor(" .. current_lnum .. "," .. current_col .. ")")
     end,
     -- command = "silent %!prettierd --find-config-path %",
 })
