@@ -42,6 +42,7 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'php-debug-adapter',
         'cpptools'
       },
     }
@@ -114,6 +115,22 @@ return {
           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
       },
+    }
+
+    dap.adapters.php = {
+      id = 'php',
+      type = 'executable',
+      command = 'php-debug-adapter',
+      -- args = { 'php-debug-adapter' }
+    }
+
+    dap.configurations.php = {
+      {
+        type = 'php',
+        request = 'launch',
+        name = 'Listen for Xdebug custom',
+        port = 9003
+      }
     }
 
     -- Install golang specific config

@@ -386,12 +386,12 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'php' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-    auto_install = false,
+    auto_install = true,
     -- Install languages synchronously (only applied to `ensure_installed`)
-    sync_install = false,
+    sync_install = true,
     -- List of parsers to ignore installing
     ignore_install = {},
     -- You can specify additional Treesitter modules here: -- For example: -- playground = {--enable = true,-- },
@@ -539,7 +539,8 @@ local servers = {
   -- rust_analyzer = {},
   tsserver = {},
   eslint = {},
-  intelephense = {},
+  -- intelephense = { filetypes = { "**/php/**", "**/phtml*/" } },
+  -- phpactor = { opts = {} },
   dockerls = {},
   docker_compose_language_service = {},
   cssls = {},
