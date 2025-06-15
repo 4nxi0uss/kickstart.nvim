@@ -205,6 +205,7 @@ local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
   local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
+
   if vim.v.shell_error ~= 0 then
     error('Error cloning lazy.nvim:\n' .. out)
   end
@@ -235,6 +236,21 @@ require('lazy').setup({
   --
   -- Use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
   --
+
+  {
+    'pmizio/typescript-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    opts = {
+      settings = {
+        tsserver_plugins = {
+          -- for TypeScript v4.9+
+          '@styled/typescript-styled-plugin',
+          -- or for older TypeScript versions
+          -- "typescript-styled-plugin",
+        },
+      },
+    },
+  },
 
   -- Alternatively, use `config = function() ... end` for full control over the configuration.
   -- If you prefer to call `setup` explicitly, use:
@@ -787,6 +803,9 @@ require('lazy').setup({
           -- },
         },
         opts = {},
+        config = function()
+          require('luasnip.loaders.from_vscode').lazy_load { paths = { '~/.config/nvim/lua/artur/snippets' } }
+        end,
       },
       'folke/lazydev.nvim',
     },
@@ -830,7 +849,7 @@ require('lazy').setup({
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
-        documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        documentation = { auto_show = true, auto_show_delay_ms = 10 },
       },
 
       sources = {
