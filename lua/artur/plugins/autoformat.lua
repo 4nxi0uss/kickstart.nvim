@@ -37,14 +37,28 @@ return {
       --
       -- You can use 'stop_after_first' to run the first available formatter from the list
       javascript = { 'prettierd', 'prettier', stop_after_first = true },
+      javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+      typescript = { 'prettierd', 'prettier', stop_after_first = true },
+      typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+      css = { 'prettierd', 'prettier', stop_after_first = true },
+      scss = { 'prettierd', 'prettier', stop_after_first = true },
+      less = { 'prettierd', 'prettier', stop_after_first = true },
+      html = { 'prettierd', 'prettier', stop_after_first = true },
+      json = { 'jq' },
+      jsonc = { 'prettierd', 'prettier', stop_after_first = true },
+      yaml = { 'prettierd', 'prettier', stop_after_first = true },
+      markdown = { 'prettierd', 'prettier', stop_after_first = true },
+      graphql = { 'prettierd', 'prettier', stop_after_first = true },
+      handlebars = { 'prettierd', 'prettier', stop_after_first = true },
+
+      php = { 'php_cs_fixer' },
 
       ['*'] = { 'codespell' },
-
       ['_'] = { 'trim_whitespace' },
     },
     formatters = {
       prettierd = {
-        options = {
+        opts = {
           -- Use a specific prettier parser for a filetype
           -- Otherwise, prettier will try to infer the parser from the file name
           ft_parsers = {
@@ -57,8 +71,8 @@ return {
             scss = 'scss',
             less = 'less',
             html = 'html',
-            json = 'json',
-            jsonc = 'json',
+            json = 'jq',
+            jsonc = 'jq',
             yaml = 'yaml',
             markdown = 'markdown',
             ['markdown.mdx'] = 'mdx',

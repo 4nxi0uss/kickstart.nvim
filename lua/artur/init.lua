@@ -1,5 +1,4 @@
-require('artur.remap')
-require('artur.set')
-require('artur.commands')
+require 'artur.remap'
+require 'artur.set'
 
 -- sudo apt-get install xclip ripgrep
