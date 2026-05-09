@@ -51,6 +51,8 @@ return {
       graphql = { 'prettierd', 'prettier', stop_after_first = true },
       handlebars = { 'prettierd', 'prettier', stop_after_first = true },
 
+      go = { 'gofmt' },
+
       php = { 'php_cs_fixer' },
 
       ['*'] = { 'codespell' },
