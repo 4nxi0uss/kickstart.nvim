@@ -17,6 +17,8 @@ return {
     -- Required dependency for nvim-dap-ui
     'nvim-neotest/nvim-nio',
 
+    'theHamsta/nvim-dap-virtual-text',
+
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
@@ -43,7 +45,7 @@ return {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
         'php-debug-adapter',
-        'cpptools'
+        'cpptools',
       },
     }
 
@@ -94,9 +96,9 @@ return {
 
     dap.configurations.cpp = {
       {
-        name = "Launch file custom",
-        type = "cppdbg",
-        request = "launch",
+        name = 'Launch file custom',
+        type = 'cppdbg',
+        request = 'launch',
         program = function()
           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
@@ -114,6 +116,18 @@ return {
         program = function()
           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
+        stopAtEntry = true,
+      },
+      {
+        name = 'Launch file custom (args)',
+        type = 'cppdbg',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopAtEntry = true,
+        args = { '/home/nauka/Documents/sync/projects/performance-aware/cpp/perfaware/part1/listing_0038_many_register_mov' },
       },
     }
 
@@ -129,8 +143,8 @@ return {
         type = 'php',
         request = 'launch',
         name = 'Listen for Xdebug custom',
-        port = 9003
-      }
+        port = 9003,
+      },
     }
 
     -- Install golang specific config
